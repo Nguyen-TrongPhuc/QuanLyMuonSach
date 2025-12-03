@@ -6,10 +6,15 @@ const nhaxuatbanRouter = require("./app/routes/nhaxuatban.route");
 const sachRouter = require("./app/routes/sach.route");
 const muonsachRouter = require("./app/routes/muonsach.route");
 const ApiError = require("./app/api-error");
+const path = require("path"); // Thêm path
 const uploadRouter = require("./app/routes/upload.route"); // Import mới
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+// Middleware để phục vụ các file tĩnh từ thư mục 'uploads'
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to Quan Ly Muon Sach Web." });
 });

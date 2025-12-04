@@ -59,83 +59,67 @@ onMounted(() => {
 
 <template>
     <div class="admin-home">
-        <h2 class="mb-4 text-primary fw-bold">
+        <h2 class="mb-4 text-secondary fw-bold">
             <i class="fa-solid fa-chart-line me-2"></i>Tổng quan Thư viện
         </h2>
 
         <div v-if="loading" class="text-center my-5">
-            <div class="spinner-border text-primary" role="status"></div>
+            <div class="spinner-border text-secondary" role="status"></div>
             <p class="mt-2 text-muted">Đang tổng hợp số liệu...</p>
         </div>
 
         <div v-else class="row g-4">
-            <div class="col-md-3">
-                <div class="card text-white bg-primary h-100 shadow rounded-4 border-0">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <h6 class="card-title text-uppercase mb-1 opacity-75">Tổng Đầu Sách</h6>
-                                <h2 class="mt-2 mb-0 fw-bold">{{ stats.totalBooks }}</h2>
-                            </div>
-                            <i class="fa-solid fa-book fa-3x opacity-50"></i>
-                        </div>
+            <div class="col-md-6">
+                <div class="stat-card stat-card-primary h-100">
+                    <div class="card-body text-center">
+                        <i class="fa-solid fa-book fa-3x mb-3"></i>
+                        <h2 class="fw-bold mb-1">{{ stats.totalBooks }}</h2>
+                        <p class="text-uppercase small mb-0">Tổng Đầu Sách</p>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-3">
-                <div class="card text-white bg-success h-100 shadow rounded-4 border-0">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <h6 class="card-title text-uppercase mb-1 opacity-75">Tổng Độc Giả</h6>
-                                <h2 class="mt-2 mb-0 fw-bold">{{ stats.totalReaders }}</h2>
-                            </div>
-                            <i class="fa-solid fa-users fa-3x opacity-50"></i>
-                        </div>
+            <div class="col-md-6">
+                <div class="stat-card stat-card-success h-100">
+                    <div class="card-body text-center">
+                        <i class="fa-solid fa-users fa-3x mb-3"></i>
+                        <h2 class="fw-bold mb-1">{{ stats.totalReaders }}</h2>
+                        <p class="text-uppercase small mb-0">Tổng Độc Giả</p>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-3">
-                <div class="card text-dark bg-warning h-100 shadow rounded-4 border-0">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <h6 class="card-title text-uppercase mb-1 opacity-75">Đang Mượn</h6>
-                                <h2 class="mt-2 mb-0 fw-bold">{{ stats.borrowing }}</h2>
-                            </div>
-                            <i class="fa-solid fa-hand-holding-hand fa-3x opacity-50"></i>
-                        </div>
+            <div class="col-md-6">
+                <div class="stat-card stat-card-warning h-100">
+                    <div class="card-body text-center">
+                        <i class="fa-solid fa-hand-holding-hand fa-3x mb-3"></i>
+                        <h2 class="fw-bold mb-1">{{ stats.borrowing }}</h2>
+                        <p class="text-uppercase small mb-0">Đang Mượn</p>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-3">
-                <div class="card text-white bg-danger h-100 shadow rounded-4 border-0">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <h6 class="card-title text-uppercase mb-1 opacity-75">Phiếu Quá Hạn</h6>
-                                <h2 class="mt-2 mb-0 fw-bold">{{ stats.overdue }}</h2>
-                            </div>
-                            <i class="fa-solid fa-bell fa-3x opacity-50"></i>
-                        </div>
+            <div class="col-md-6">
+                <div class="stat-card stat-card-danger h-100">
+                    <div class="card-body text-center">
+                        <i class="fa-solid fa-bell fa-3x mb-3"></i>
+                        <h2 class="fw-bold mb-1">{{ stats.overdue }}</h2>
+                        <p class="text-uppercase small mb-0">Phiếu Quá Hạn</p>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="mt-5">
-            <h4 class="mb-3 text-secondary">Truy cập nhanh</h4>
+            <h4 class="mb-3 text-secondary fw-normal">Truy cập nhanh</h4>
             <div class="d-flex gap-3 flex-wrap">
-                <RouterLink to="/admin/borrows/new" class="btn btn-lg btn-outline-primary shadow-sm">
+                <RouterLink to="/admin/borrows/new" class="btn btn-lg btn-quick-access">
                     <i class="fa-solid fa-plus me-2"></i>Tạo Phiếu Mượn
                 </RouterLink>
-                <RouterLink to="/admin/books/new" class="btn btn-lg btn-outline-success shadow-sm">
+                <RouterLink to="/admin/books/new" class="btn btn-lg btn-quick-access">
                     <i class="fa-solid fa-book-medical me-2"></i>Nhập Sách Mới
                 </RouterLink>
-                <RouterLink to="/admin/users/new" class="btn btn-lg btn-outline-dark shadow-sm">
+                <RouterLink to="/admin/users/new" class="btn btn-lg btn-quick-access">
                     <i class="fa-solid fa-user-plus me-2"></i>Thêm Độc Giả
                 </RouterLink>
             </div>
@@ -144,8 +128,34 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.card:hover {
+.stat-card {
+    border-radius: 0.75rem;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    color: white;
+    border: none;
+}
+.stat-card:hover {
     transform: translateY(-5px);
-    transition: transform 0.3s ease;
+    box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.1);
+}
+.stat-card .fa-3x {
+    opacity: 0.7;
+}
+
+/* Màu nền gradient cho từng thẻ */
+.stat-card-primary { background-image: linear-gradient(45deg, #4e73df, #224abe); }
+.stat-card-success { background-image: linear-gradient(45deg, #1cc88a, #13855c); }
+.stat-card-warning { background-image: linear-gradient(45deg, #f6c23e, #dda20a); }
+.stat-card-danger  { background-image: linear-gradient(45deg, #e74a3b, #be2617); }
+
+.btn-quick-access {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    color: #495057;
+}
+.btn-quick-access:hover {
+    background-color: #e2e6ea;
+    border-color: #dae0e5;
+    color: #212529;
 }
 </style>

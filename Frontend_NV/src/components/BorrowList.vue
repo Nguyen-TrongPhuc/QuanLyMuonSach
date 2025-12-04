@@ -214,6 +214,7 @@ onMounted(() => {
                         <td>{{ item.NgayTra || '---' }}</td>
                         <td>
                             <span v-if="item.TrangThai === 0" class="badge bg-warning text-dark">Chờ duyệt</span>
+                            <span v-if="item.TrangThai === 0" class="badge text-dark" style="background-color: #FFD700;">Chờ duyệt</span>
                             <span v-else-if="item.TrangThai === 1" class="badge bg-primary">Đang mượn</span>
                             <span v-else-if="item.TrangThai === 2" class="badge bg-success">Đã trả</span>
 

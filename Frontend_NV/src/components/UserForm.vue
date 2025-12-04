@@ -71,66 +71,86 @@ onMounted(() => {
 </script>
 
 <template>
-    <form @submit.prevent="handleSubmit" class="p-3 border rounded shadow-sm bg-white">
-        <div class="row">
-            <div class="col-md-4 mb-3">
-                <label class="form-label">Mã Độc Giả</label>
-                <input type="text" class="form-control" v-model="user.MaDocGia" required :disabled="isEditMode">
+    <div>
+        <h2 class="mb-4 fw-bold text-primary">{{ isEditMode ? 'Chỉnh sửa Độc Giả' : 'Thêm Độc Giả Mới' }}</h2>
+        <form @submit.prevent="handleSubmit">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header"><h5 class="mb-0">Thông tin cá nhân</h5></div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Mã Độc Giả</label>
+                            <input type="text" class="form-control" v-model="user.MaDocGia" required :disabled="isEditMode">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Họ Lót</label>
+                            <input type="text" class="form-control" v-model="user.HoLot" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Tên</label>
+                            <input type="text" class="form-control" v-model="user.Ten" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <label class="form-label">Ngày Sinh</label>
+                            <input type="date" class="form-control" v-model="user.NgaySinh" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Phái</label>
+                            <select class="form-select" v-model="user.Phai">
+                                <option value="Nam">Nam</option>
+                                <option value="Nữ">Nữ</option>
+                                <option value="Khác">Khác</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-4 mb-3">
-                <label class="form-label">Họ Lót</label>
-                <input type="text" class="form-control" v-model="user.HoLot" required>
-            </div>
-            <div class="col-md-4 mb-3">
-                <label class="form-label">Tên</label>
-                <input type="text" class="form-control" v-model="user.Ten" required>
-            </div>
-        </div>
 
-        <div class="row">
-            <div class="col-md-4 mb-3">
-                <label class="form-label">Ngày Sinh</label>
-                <input type="date" class="form-control" v-model="user.NgaySinh" required>
+            <div class="card shadow-sm">
+                <div class="card-header"><h5 class="mb-0">Thông tin liên hệ & Bảo mật</h5></div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="form-label">Địa Chỉ</label>
+                        <input type="text" class="form-control" v-model="user.DiaChi" required>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <label class="form-label">Điện Thoại</label>
+                            <input type="tel" class="form-control" v-model="user.DienThoai" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Mật khẩu {{ isEditMode ? '(Bỏ trống nếu không đổi)' : '' }}</label>
+                            <input type="password" class="form-control" v-model="user.Password" :required="!isEditMode">
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-4 mb-3">
-                <label class="form-label">Phái</label>
-                <select class="form-select" v-model="user.Phai">
-                    <option value="Nam">Nam</option>
-                    <option value="Nữ">Nữ</option>
-                    <option value="Khác">Khác</option>
-                </select>
+            
+            <!-- Thanh hành động cố định -->
+            <div class="form-actions">
+                <div class="d-flex justify-content-between">
+                    <RouterLink to="/admin/users" class="btn btn-secondary"><i class="fa-solid fa-arrow-left me-1"></i> Quay lại</RouterLink>
+                    <button type="submit" class="btn btn-primary" :disabled="loading">
+                        <span v-if="loading" class="spinner-border spinner-border-sm me-2"></span>
+                        {{ isEditMode ? 'Cập nhật Độc Giả' : 'Thêm Độc Giả' }}
+                    </button>
+                </div>
             </div>
-            <div class="col-md-4 mb-3">
-                <label class="form-label">Điện Thoại</label>
-                <input type="tel" class="form-control" v-model="user.DienThoai" required>
-            </div>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Địa Chỉ</label>
-            <input type="text" class="form-control" v-model="user.DiaChi" required>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Mật khẩu {{ isEditMode ? '(Bỏ trống nếu không đổi)' : '' }}</label>
-            <input 
-                type="password" 
-                class="form-control" 
-                v-model="user.Password" 
-                :required="!isEditMode" 
-            >
-        </div>
-        
-        <hr>
-
-        <div class="d-flex justify-content-between">
-            <RouterLink to="/admin/users" class="btn btn-secondary">
-                <i class="fa-solid fa-arrow-left me-1"></i> Quay lại
-            </RouterLink>
-            <button type="submit" class="btn btn-primary" :disabled="loading">
-                <span v-if="loading" class="spinner-border spinner-border-sm me-2"></span>
-                {{ isEditMode ? 'Cập nhật' : 'Thêm mới' }}
-            </button>
-        </div>
-    </form>
+        </form>
+    </div>
 </template>
+
+<style scoped>
+.form-actions {
+    position: sticky;
+    bottom: 65px; /* Đặt vị trí ngay trên thanh điều hướng dưới cùng */
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 1rem;
+    margin: 1.5rem -1rem -1rem -1rem; /* Mở rộng ra sát viền card */
+    border-top: 1px solid #dee2e6;
+    backdrop-filter: blur(5px);
+    z-index: 10;
+}
+</style>

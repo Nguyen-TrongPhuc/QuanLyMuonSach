@@ -10,55 +10,9 @@ function handleLogout() {
 </script>
 
 <template>
-    <div class="admin-layout d-flex">
-        <aside class="sidebar bg-dark text-white p-3">
-            <h4 class="text-center mb-4">
-                <i class="fa-solid fa-shield-halved me-2"></i>
-                Admin Panel
-            </h4>
-
-            <ul class="nav nav-pills flex-column mb-auto">
-                <li class="nav-item mb-2">
-                    <RouterLink to="/admin" class="nav-link text-white" exact-active-class="active">
-                        <i class="fa-solid fa-chart-line me-2"></i> Tổng quan Thư viện
-                    </RouterLink>
-                </li>
-
-                <li class="nav-item mb-2">
-                    <RouterLink to="/admin/books" class="nav-link text-white" active-class="active">
-                        <i class="fa-solid fa-book me-2"></i> Quản lý Sách
-                    </RouterLink>
-                </li>
-
-                <li class="nav-item mb-2">
-                    <RouterLink to="/admin/users" class="nav-link text-white" active-class="active">
-                        <i class="fa-solid fa-users me-2"></i> Quản lý Độc Giả
-                    </RouterLink>
-                </li>
-
-                <li class="nav-item mb-2">
-                    <RouterLink to="/admin/borrows" class="nav-link text-white" active-class="active">
-                        <i class="fa-solid fa-right-left me-2"></i> Quản lý Mượn Sách
-                    </RouterLink>
-                </li>
-
-                <li class="nav-item mb-2">
-                    <RouterLink to="/admin/publishers" class="nav-link text-white" active-class="active">
-                        <i class="fa-solid fa-building me-2"></i> Quản lý NXB
-                    </RouterLink>
-                </li>
-            </ul>
-            <hr>
-            <div class="d-grid">
-                <button class="btn btn-danger" @click="handleLogout">
-                    <i class="fa-solid fa-right-from-bracket me-2"></i>
-                    Đăng xuất
-                </button>
-            </div>
-        </aside>
-
-        <main class="main-content flex-grow-1 p-4">
-            <nav class="navbar navbar-light bg-light rounded mb-4 p-3 shadow-sm">
+    <div class="admin-layout">
+        <main class="main-content p-4">
+            <nav class="navbar navbar-light bg-white rounded mb-4 p-3 shadow-sm">
                 <div class="ms-auto">
                     <span class="navbar-text">
                         <i class="fa-solid fa-user-tie me-2"></i>
@@ -71,28 +25,80 @@ function handleLogout() {
                 <RouterView />
             </div>
         </main>
+
+        <footer class="bottom-nav bg-dark text-white p-2 shadow-lg">
+            <ul class="nav nav-pills justify-content-center">
+                <li class="nav-item">
+                    <RouterLink to="/admin" class="nav-link text-white" exact-active-class="active">
+                        <i class="fa-solid fa-chart-line d-block mx-auto"></i>
+                        <span class="nav-text">Tổng quan</span>
+                    </RouterLink>
+                </li>
+                <li class="nav-item">
+                    <RouterLink to="/admin/books" class="nav-link text-white" active-class="active">
+                        <i class="fa-solid fa-book d-block mx-auto"></i>
+                        <span class="nav-text">Sách</span>
+                    </RouterLink>
+                </li>
+                <li class="nav-item">
+                    <RouterLink to="/admin/users" class="nav-link text-white" active-class="active">
+                        <i class="fa-solid fa-users d-block mx-auto"></i>
+                        <span class="nav-text">Độc Giả</span>
+                    </RouterLink>
+                </li>
+                <li class="nav-item">
+                    <RouterLink to="/admin/borrows" class="nav-link text-white" active-class="active">
+                        <i class="fa-solid fa-right-left d-block mx-auto"></i>
+                        <span class="nav-text">Mượn/Trả</span>
+                    </RouterLink>
+                </li>
+                <li class="nav-item">
+                    <RouterLink to="/admin/publishers" class="nav-link text-white" active-class="active">
+                        <i class="fa-solid fa-building d-block mx-auto"></i>
+                        <span class="nav-text">NXB</span>
+                    </RouterLink>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-white" @click.prevent="handleLogout">
+                        <i class="fa-solid fa-right-from-bracket d-block mx-auto"></i>
+                        <span class="nav-text">Đăng xuất</span>
+                    </a>
+                </li>
+            </ul>
+        </footer>
     </div>
 </template>
 
 <style scoped>
 .admin-layout {
     min-height: 100vh;
-}
-
-.sidebar {
-    width: 280px;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    background-color: #000000; /* Màu nền vàng nhạt dự phòng */
+    background-image: linear-gradient(to bottom, #9dd3f2, #ffffff); /* Gradient màu vàng nhạt */
 }
 
 .main-content {
-
-    min-height: 100vh;
-    overflow-y: auto;
+    padding-bottom: 160px; /* Tăng thêm khoảng trống để không che các nút ở form dài */
 }
 
-.nav-pills .nav-link.active {
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1030;
+}
+
+.nav-pills .nav-link {
+    text-align: center;
+    padding: 0.5rem 1rem;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
     background-color: #0d6efd;
+}
+
+.nav-text {
+    font-size: 0.75rem;
 }
 </style>

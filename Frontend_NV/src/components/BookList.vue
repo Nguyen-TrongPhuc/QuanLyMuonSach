@@ -105,40 +105,33 @@ onMounted(() => {
         </div>
 
         <div v-else>
-            <form @submit.prevent="fetchBooks" class="mb-3">
-                <div class="row g-2">
-                    <div class="col-md-6">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Tìm theo Tên Sách hoặc Mã Sách..."
-                                v-model="searchText" />
-                            <button class="btn btn-primary" type="submit">
-                                <i class="fa-solid fa-search"></i> Tìm
-                            </button>
-                            <button class="btn btn-outline-secondary" type="button" @click="clearSearch"
-                                title="Xóa tìm kiếm">
-                                <i class="fa-solid fa-times"></i> Xóa
+            <!-- Thanh Tìm kiếm & Lọc -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <form @submit.prevent="fetchBooks" class="row g-3 align-items-center">
+                        <div class="col-md-5">
+                             <div class="input-group">
+                                <span class="input-group-text"><i class="fa-solid fa-search"></i></span>
+                                <input type="text" class="form-control" placeholder="Tìm theo Tên hoặc Mã Sách..." v-model="searchText" />
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-solid fa-filter"></i></span>
+                                <select class="form-select" v-model="selectedCategory" @change="fetchBooks">
+                                    <option value="">-- Lọc theo Thể loại --</option>
+                                    <option v-for="cat in categories" :key="cat" :value="cat">{{ cat }}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2 d-grid">
+                            <button class="btn btn-outline-secondary" type="button" @click="clearSearch" title="Xóa tìm kiếm và bộ lọc">
+                                <i class="fa-solid fa-times me-1"></i> Xóa lọc
                             </button>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="input-group">
-                            <label class="input-group-text" for="categoryFilter">
-                                <i class="fa-solid fa-filter"></i>
-                            </label>
-                            <select 
-                                class="form-select" 
-                                id="categoryFilter"
-                                v-model="selectedCategory"
-                                @change="fetchBooks" >
-                                <option value="">-- Tất cả Thể loại --</option>
-                                <option v-for="cat in categories" :key="cat" :value="cat">
-                                    {{ cat }}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
+                    </form>
                 </div>
-            </form>
+            </div>
 
             <table class="table table-striped table-hover table-bordered shadow-sm">
                 <thead class="table-dark">

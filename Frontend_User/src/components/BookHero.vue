@@ -11,12 +11,12 @@ const selectedCategory = defineModel('selectedCategory');
 <template>
     <div class="hero-section text-center text-white py-5 mb-4">
         <div class="container">
-            <h1 class="display-4 fw-bold mb-3">Khám phá tri thức</h1>
-            <p class="lead mb-4">Tìm kiếm hàng ngàn đầu sách hấp dẫn ngay tại đây</p>
+            <h1 class="display-4 fw-bold mb-3">Bạn muốn đọc gì hôm nay?</h1>
+            <p class="lead mb-4">Hàng ngàn đầu sách thuộc mọi lĩnh vực đang chờ bạn.</p>
             
             <div class="search-box bg-white p-3 rounded-4 shadow mx-auto">
-                <div class="row g-2">
-                    <div class="col-md-6">
+                <div class="row g-3">
+                    <div class="col-md-8">
                         <div class="input-group">
                             <span class="input-group-text bg-white border-end-0">
                                 <i class="fa-solid fa-search text-muted"></i>
@@ -24,7 +24,7 @@ const selectedCategory = defineModel('selectedCategory');
                             <input 
                                 type="text" 
                                 class="form-control border-start-0" 
-                                placeholder="Nhập tên sách..." 
+                                placeholder="Tìm kiếm theo tên sách, tác giả..." 
                                 v-model="searchText"
                             >
                         </div>
@@ -37,9 +37,6 @@ const selectedCategory = defineModel('selectedCategory');
                             </option>
                         </select>
                     </div>
-                    <div class="col-md-2">
-                        <button class="btn btn-primary w-100 fw-bold">Tìm ngay</button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -48,15 +45,15 @@ const selectedCategory = defineModel('selectedCategory');
 
 <style scoped>
 .hero-section {
-    background: linear-gradient(135deg, #0d6efd 0%, #0dcaf0 100%);
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=1974&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    padding-bottom: 3rem !important;
     border-bottom-left-radius: 2rem;
     border-bottom-right-radius: 2rem;
-    padding-bottom: 4rem !important;
 }
 .search-box {
     max-width: 800px;
     margin-top: 1rem;
-    position: relative;
-    top: 20px; 
 }
 </style>

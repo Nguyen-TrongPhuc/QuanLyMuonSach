@@ -93,7 +93,7 @@ onMounted(() => {
 
         <div class="container pb-5">
             <div v-if="loading" class="text-center py-5">
-                <div class="spinner-border text-primary"></div>
+                <div class="spinner-border text-success"></div>
             </div>
 
             <div v-else>
@@ -111,3 +111,9 @@ onMounted(() => {
     </div>
 </template>
 
+<style scoped>
+.library-page {
+    min-height: 100vh;
+    background-image: linear-gradient(to bottom, #a7f3d0, #ffffff);
+}
+</style>

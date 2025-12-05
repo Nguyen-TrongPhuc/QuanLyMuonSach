@@ -126,10 +126,9 @@ onMounted(() => {
                                 <p>Bạn chưa mượn quyển sách nào.</p>
                                 <RouterLink to="/" class="btn btn-outline-success">Khám phá thư viện ngay</RouterLink>
                             </div>
-
-                            <div v-else class="row g-4">
-                                <div class="col-12" v-for="item in currentBorrows" :key="item._id">
-                                    <div class="borrow-card card card-body border-start-0 border-end-0 border-top-0 border-bottom">
+                            <TransitionGroup v-else name="list" tag="div" class="row g-4">
+                                <div class="col-12" v-for="(item, index) in currentBorrows" :key="item._id" :style="{'transition-delay': index * 100 + 'ms'}">
+                                    <div class="borrow-card card card-body">
                                         <div class="row g-3 align-items-center">
                                             <div class="col-md-2 text-center">
                                                 <img :src="getBookDetails(item.MaSach)?.HinhAnh || 'https://placehold.co/120x180?text=Book'" class="img-fluid rounded shadow-sm" style="max-height: 150px;">
@@ -160,7 +159,7 @@ onMounted(() => {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </TransitionGroup>
                         </div>
 
                         <!-- Tab Lịch sử -->
@@ -169,8 +168,8 @@ onMounted(() => {
                                 <i class="fa-solid fa-clock-rotate-left fa-3x mb-3 opacity-25"></i>
                                 <p>Chưa có lịch sử mượn trả.</p>
                             </div>
-                            <ul v-else class="timeline">
-                                <li v-for="item in historyBorrows" :key="item._id">
+                            <TransitionGroup v-else name="list" tag="ul" class="timeline">
+                                <li v-for="(item, index) in historyBorrows" :key="item._id" :style="{'transition-delay': index * 100 + 'ms'}">
                                     <div class="timeline-badge"><i class="fa-solid fa-check"></i></div>
                                     <div class="timeline-panel">
                                         <div class="timeline-heading">
@@ -186,7 +185,7 @@ onMounted(() => {
                                         </div>
                                     </div>
                                 </li>
-                            </ul>
+                            </TransitionGroup>
                         </div>
                     </div>
                 </div>
@@ -211,13 +210,16 @@ onMounted(() => {
 
 .nav-tabs .nav-link {
     border: 0;
-    color: #6c757d; /* Màu chữ tab không active */
+    color: #6c757d;
+    border-radius: 50rem;
+    margin-right: 0.5rem;
+    transition: all 0.3s ease;
 }
 
 .nav-tabs .nav-link.active {
     color: #198754;
-    border-bottom: 3px solid #198754;
-    background-color: transparent;
+    background-color: #d1e7dd;
+    border-color: transparent;
 }
 </style>
 
@@ -284,11 +286,25 @@ onMounted(() => {
     margin-top: 5px;
 }
 .borrow-card {
-    transition: all 0.2s ease-in-out;
+    border: 1px solid #e9ecef;
+    border-radius: 0.75rem;
+    transition: all 0.3s ease-in-out;
 }
 .borrow-card:hover {
-    transform: scale(1.02);
-    box-shadow: 0 0.5rem 1rem rgba(0,0,0,.15)!important;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1)!important;
     z-index: 2;
 }
+
+/* Staggered List Animation */
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
 </style>
